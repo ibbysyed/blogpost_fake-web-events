@@ -1,3 +1,8 @@
+# A quick note: 
+This isn't something we made, but rather a fork from a repository. We're writing a blog post that explains how to make changes and use it for your own use cases. 
+Check out the pull requests in the repo if you want to learn more, or visit https://varchars.substack.com/ to read the post. 
+
+
 # Fake Web Events
 
 Generator of semi-random fake web events. 
@@ -84,51 +89,3 @@ home:
 ```
 This means that at the next iteration there are 45% chance user stays at home page, 
 17% chance user goes to product_a page and so on.
-
-### Website Map
-We designed a really simple website map to allow user browsing.
-![website_map](assets/website_map.svg)
-
-Green pages are those where a user can land at the beginning of a session. 
-Yellow pages are only accessible to user who are already browsing.
-
-You can fin how the probabilities for each page are defined in the 
-[config.template.yml](fake_web_events/config.template.yml) file
-
-### Fake user information
-To generate fake user information, such as IP and email addresses we are using the module [Faker](https://github.com/joke2k/faker).
-
-### User Pool
-We create a user pool from where users are randomly chosen (with replacement). This enables users to have different sessions over time.
-
-### Simulation
-When you run a simulation, it will pick an user and iterate until that user reaches session_end. 
-Simulation will run in steps defined by `batch_size`. The default `batch_size` is 10 seconds, meaning that 
-each iteration will add 10 seconds to the timer (with some randomness).
-
-For each iteration an event is generated for each user when the current page is different from the previous page.
-
-### Simulate events
-When calling `simulate_events()` you have to define a duration in seconds. Please note that this duration is in "real time", 
-and that time inside the simulation will usually run faster than real time.
-
-This will return a generator, so you need to iterate over it and decide what to do to each event inside the loop.
-
-## Advanced
-If you want to customize the probabilities, you can create a file called `config.yml` in the same 
-directory where you are running the script. This file will take precedence over [config.template.yml](fake_web_events/config.template.yml).
-
-# Examples
-In the folder [examples](examples) you are going to find some use cases and examples on how to use this package.
-
-## Page visit distribution
-After running the simulation for a few seconds, we get the following distribution of events per page:
-![pageview_funnel](assets/pageview_funnel.png)
-
-
-## Page views per hour
-We also have different visit rates per hour of day. This is the distribution after running the simulation:
-![events_per_hour](assets/pageviews.gif)
-
-# Wanna help?
-Fork, improve and PR.
